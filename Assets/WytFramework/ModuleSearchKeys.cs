@@ -19,8 +19,10 @@ namespace WytFramework
         {
             ModuleSearchKeys outputKeys = null;
 
-            outputKeys = (ModuleSearchKeys) (mPool.Count != 0 ? mPool.Pop() : new ModuleSearchKeys());
+            outputKeys = mPool.Count != 0 ? mPool.Pop() : new ModuleSearchKeys();
+
             outputKeys.Type = typeof(T);
+
             return outputKeys;
         }
         

@@ -8,8 +8,8 @@ namespace WytFramework.ServiceLocator.ModuleManagementExample
     }
     public class UIManager : IUIManager
     {
-        public ResManager ResManager { get; set; }
-        public EventManager EventManager { get; set; }
+        public IResManager ResManager { get; set; }
+        public IEventManager EventManager { get; set; }
         
         public void DoSomething()
         {

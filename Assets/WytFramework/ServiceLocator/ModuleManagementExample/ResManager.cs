@@ -12,8 +12,6 @@ namespace WytFramework.ServiceLocator.ModuleManagementExample
 
         public void DoSomething()
         {
-            var poolManager = new PoolManager();
-
             Debug.Log("ResManager DoSomething");
         }
 

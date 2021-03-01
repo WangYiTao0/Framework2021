@@ -7,22 +7,52 @@ namespace WytFramework.ServiceLocator.Default
 {
     public class AssemblyModuleFactory : IModuleFactory
     {
-        private readonly List<Type> _typeCache;
+        private readonly List<Type> mConcreteTypeCache;
+
+        /// <summary>
+        /// 抽象类型和具体类型 对应的字典
+        /// </summary>
+        private Dictionary<Type, Type> mAbstractToConcrete = new Dictionary<Type, Type>();
         
         public AssemblyModuleFactory(Assembly assembly, Type baseModuleType)
         {
-            _typeCache = assembly
+            mConcreteTypeCache = assembly
                 .GetTypes()
                 .Where(t => baseModuleType.IsAssignableFrom(t) && !t.IsAbstract)
                 .ToList();
+            
+            // 具体类型的父接口类型
+            foreach (var type in mConcreteTypeCache)
+            {
+                var interfaces = type.GetInterfaces();
+
+                foreach (var @interface in interfaces)
+                {
+                    // 不是 Module 接口的父类型
+                    if (baseModuleType.IsAssignableFrom(@interface) && @interface != baseModuleType)
+                    {
+                        mAbstractToConcrete.Add(@interface, type);
+                    }
+                }
+            }
         }
 
 
         public object CreateModule(ModuleSearchKeys keys)
         {
-            if (_typeCache.Contains(keys.Type))
+            if (keys.Type.IsAbstract)
             {
-                return keys.Type.GetConstructors().First().Invoke(null);
+                if (mAbstractToConcrete.ContainsKey(keys.Type))
+                {
+                    return mAbstractToConcrete[keys.Type].GetConstructors().First().Invoke(null);
+                }
+            }
+            else
+            {
+                if (mConcreteTypeCache.Contains((keys.Type)))
+                {
+                    return keys.Type.GetConstructors().First().Invoke(null);
+                }
             }
 
             return null;
@@ -30,7 +60,7 @@ namespace WytFramework.ServiceLocator.Default
 
         public object CreateModules(ModuleSearchKeys keys)
         {
-            return _typeCache.Select(t => t.GetConstructors().First().Invoke(null));
+            return mConcreteTypeCache.Select(t => t.GetConstructors().First().Invoke(null));
         }
     }
 }

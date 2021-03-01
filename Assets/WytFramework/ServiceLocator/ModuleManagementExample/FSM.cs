@@ -8,7 +8,6 @@ namespace WytFramework.ServiceLocator.ModuleManagementExample
     }
     public class FSM : IFSM
     {
-        
         public void DoSomething()
         {
             Debug.Log("FSM DoSomething");

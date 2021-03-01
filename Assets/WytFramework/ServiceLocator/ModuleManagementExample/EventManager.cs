@@ -9,13 +9,10 @@ namespace WytFramework.ServiceLocator.ModuleManagementExample
 
     public class EventManager : IEventManager
     {
-        public PoolManager PoolManager { get; set; }
+        public IPoolManager PoolManager { get; set; }
 
         public void DoSomething()
         {
-            // 依赖 PoolManager
-            var poolManager = new PoolManager();
-
             Debug.Log("EventManager DoSomeThing");
         }
 

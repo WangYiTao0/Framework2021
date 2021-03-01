@@ -21,6 +21,7 @@ namespace WytFramework
         {
             // 申请对象
             var moduleSearchKeys = ModuleSearchKeys.Allocate<T>();
+            
             var module = _moduleCache.GetModule(moduleSearchKeys);
 
             if (module == null)
@@ -39,6 +40,7 @@ namespace WytFramework
         {
             // 申请对象
             var moduleSearchKeys = ModuleSearchKeys.Allocate<T>();
+            
             var modules = _moduleCache.GetModules(moduleSearchKeys) as IEnumerable<object>;
 
             if (modules == null)
@@ -49,6 +51,7 @@ namespace WytFramework
             }
             // 回收对象
             moduleSearchKeys.Release2Pool();
+            
             return modules.Select(m => m as T);
         }
         

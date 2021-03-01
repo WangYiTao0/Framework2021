@@ -14,18 +14,19 @@ namespace WytFramework.ServiceLocator.ModuleManagementExample
             var factory = new AssemblyModuleFactory(baseType.Assembly,baseType);
 
             Container = new ModuleContainer(cache, factory);
+            
             //主动去创建对象
-            var poolManager = Container.GetModule<PoolManager>();
-            var fsm = Container.GetModule<FSM>();
-            var resManager = Container.GetModule<ResManager>();
-            var eventManager = Container.GetModule<EventManager>();
-            var uiManager = Container.GetModule<UIManager>();
+            var poolManager = Container.GetModule<IPoolManager>();
+            var fsm = Container.GetModule<IFSM>();
+            var resManager = Container.GetModule<IResManager>();
+            var eventManager = Container.GetModule<IEventManager>();
+            var uiManager = Container.GetModule<IUIManager>();
             
             //设置依赖关系
-            uiManager.EventManager = eventManager;
-            uiManager.ResManager = resManager;
-            eventManager.PoolManager = poolManager;
-            resManager.PoolManager = poolManager;
+            (uiManager as UIManager).EventManager =  eventManager;
+            (uiManager as UIManager).ResManager = resManager;
+            (eventManager as EventManager).PoolManager =  poolManager;
+            (resManager as ResManager).PoolManager = poolManager;
             
             //初始化模块
             foreach (var module in Container.GetModules<IModule>())
@@ -36,7 +37,7 @@ namespace WytFramework.ServiceLocator.ModuleManagementExample
 
         private void Start()
         {
-            var uiManager = ModuleManagementConfig.Container.GetModule<UIManager>();
+            var uiManager = ModuleManagementConfig.Container.GetModule<IUIManager>();
 
             uiManager.DoSomething();
         }
