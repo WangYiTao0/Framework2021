@@ -16,28 +16,19 @@ namespace WytFramework.ServiceLocator.Default
                 .Where(t => baseModuleType.IsAssignableFrom(t) && !t.IsAbstract)
                 .ToList();
         }
-        
-        public object CreateModuleByName(string name)
-        {
-            return null;
-        }
 
-        public object CreateModuleByType(Type type)
+
+        public object CreateModule(ModuleSearchKeys keys)
         {
-            if (_typeCache.Contains(type))
+            if (_typeCache.Contains(keys.Type))
             {
-                return type.GetConstructors().First().Invoke(null);
+                return keys.Type.GetConstructors().First().Invoke(null);
             }
 
             return null;
         }
 
-        public object CreateModulesByName(string name)
-        {
-            return null;
-        }
-
-        public object CreateModulesByType(Type type)
+        public object CreateModules(ModuleSearchKeys keys)
         {
             return _typeCache.Select(t => t.GetConstructors().First().Invoke(null));
         }

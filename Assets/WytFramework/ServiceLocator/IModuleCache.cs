@@ -6,18 +6,13 @@ namespace WytFramework.ServiceLocator
 {
     public interface IModuleCache
     {
-        object GetModuleByName(string name);
-        object GetModuleByType(Type type);
-        object GetModulesByName(string name);
-        object GetModulesByType(Type type);
+        object GetModule(ModuleSearchKeys keys);
 
-        void AddModuleByName(string name, object module);
+        object GetModules(ModuleSearchKeys keys);
 
-        void AddModuleByType(Type type, object module);
-        
-        void AddModulesByName(string name, object modules);
-        
-        void AddModulesByType(Type type, object modules);
+        void AddModule(ModuleSearchKeys keys, object module);
+
+        void AddModules(ModuleSearchKeys keys, object modules);
 
 
     }

@@ -9,12 +9,11 @@ namespace WytFramework.ServiceLocator.Default
     {
         private Dictionary<Type, List<object>> _modulesByType = new Dictionary<Type, List<object>>();
 
-        private Dictionary<string, List<object>> _mdulesByName = new Dictionary<string, List<object>>();
 
-        public object GetModuleByName(string name)
+        public object GetModule(ModuleSearchKeys keys)
         {
             List<object> output = null;
-            if (_mdulesByName.TryGetValue(name, out output))
+            if (_modulesByType.TryGetValue(keys.Type, out output))
             {
                 return output.FirstOrDefault();
             }
@@ -22,88 +21,40 @@ namespace WytFramework.ServiceLocator.Default
             return null;
         }
 
-        public object GetModuleByType(Type type)
+        public object GetModules(ModuleSearchKeys keys)
         {
             List<object> output = null;
-            if (_modulesByType.TryGetValue(type, out output))
+            if (_modulesByType.TryGetValue(keys.Type, out output))
             {
-                return output.FirstOrDefault();
-            }
-
-            return null;
-        }
-
-        public object GetModulesByName(string name)
-        {
-            List<object> output = null;
-            if (_mdulesByName.TryGetValue(name, out output))
-            {
-                
+               
             }
 
             return output;
         }
 
-        public object GetModulesByType(Type type)
+        public void AddModule(ModuleSearchKeys keys, object module)
         {
-            List<object> output = null;
-            if (_modulesByType.TryGetValue(type, out output))
+            if (_modulesByType.ContainsKey(keys.Type))
             {
-             
-            }
-
-            return output;
-        }
-
-        public void AddModuleByName(string name, object module)
-        {
-            if (_mdulesByName.ContainsKey(name))
-            {
-                _mdulesByName[name].Add(module);
+                _modulesByType[keys.Type].Add(module);
             }
             else
             {
-                _mdulesByName.Add(name, new List<object>(){module});
+                _modulesByType.Add(keys.Type, new List<object>() {module});
             }
         }
 
-        public void AddModuleByType(Type type, object module)
-        {
-            if (_modulesByType.ContainsKey(type))
-            {
-                _modulesByType[type].Add(module);
-            }
-            else
-            {
-                _modulesByType.Add(type, new List<object>(){module});
-            }
-        }
-
-        public void AddModulesByName(string name, object modules)
+        public void AddModules(ModuleSearchKeys keys, object modules)
         {
             var moduleCollection = (IEnumerable<object>) modules;
-            
-            if (_mdulesByName.ContainsKey(name))
-            {
-                _mdulesByName[name].AddRange(moduleCollection);
-            }
-            else
-            {
-                _mdulesByName.Add(name, moduleCollection.ToList());
-            }
-        }
 
-        public void AddModulesByType(Type type, object modules)
-        {
-            var moduleCollection = (IEnumerable<object>) modules;
-            
-            if (_modulesByType.ContainsKey(type))
+            if (_modulesByType.ContainsKey(keys.Type))
             {
-                _modulesByType[type].AddRange(moduleCollection);
+                _modulesByType[keys.Type].AddRange(moduleCollection);
             }
             else
             {
-                _modulesByType.Add(type, moduleCollection.ToList());
+                _modulesByType.Add(keys.Type,moduleCollection.ToList());
             }
         }
     }
