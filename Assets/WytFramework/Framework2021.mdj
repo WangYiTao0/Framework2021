@@ -3535,7 +3535,7 @@
 											"top": 447,
 											"width": 174.79541015625,
 											"height": 13,
-											"text": "EditorPlatformModuleCache"
+											"text": "DefaultModuleCache"
 										},
 										{
 											"_type": "LabelView",
@@ -3806,7 +3806,7 @@
 											"top": 623,
 											"width": 182.736328125,
 											"height": 13,
-											"text": "EditorPlatformModuleFactory"
+											"text": "AssemblyModuleFactory"
 										},
 										{
 											"_type": "LabelView",
@@ -5061,7 +5061,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "EditorPlatformModuleCache",
+					"name": "DefaultModuleCache",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -5085,7 +5085,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "EditorPlatformModuleFactory",
+					"name": "AssemblyModuleFactory",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",

@@ -8,8 +8,8 @@ namespace WytFramework
 {
     public class ModuleContainer
     {
-        private IModuleCache _moduleCache;
-        private IModuleFactory _moduleFactory;
+        private readonly IModuleCache _moduleCache;
+        private readonly IModuleFactory _moduleFactory;
 
         public ModuleContainer(IModuleCache cache, IModuleFactory moduleFactory)
         {
@@ -47,14 +47,14 @@ namespace WytFramework
         public IEnumerable<T> GetModules<T>() where T : class
         {
             var moduleType = typeof(T);
-            var modules = _moduleCache.GetModulesByType(moduleType);
+            var modules = _moduleCache.GetModulesByType(moduleType) as IEnumerable<object>;
             if (modules == null)
             {
-                modules = _moduleFactory.CreateModulesByType(moduleType);
+                modules = _moduleFactory.CreateModulesByType(moduleType)as IEnumerable<object>;
                 _moduleCache.AddModulesByType(moduleType,modules);
             }
 
-            return modules as IEnumerable<T>;
+            return modules.Select(m => m as T);
         }
         
         public IEnumerable<object> GetModules(string name)

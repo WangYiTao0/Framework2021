@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using WytFramework.ServiceLocator;
+using WytFramework.ServiceLocator.Default;
 
 namespace WytFramework
 {
@@ -26,8 +27,9 @@ namespace WytFramework
             editorPlatform.Show();
 
             // 组装 Container
-            var cache = new EditorPlatformModuleCache();
-            var factory = new EditorPlatformModuleFactory();
+            var moduleType = typeof(IEditorPlatformModule);
+            var cache = new DefaultModuleCache();
+            var factory = new AssemblyModuleFactory(moduleType.Assembly,moduleType);
 
             editorPlatform.mModuleContainer = new ModuleContainer(cache, factory);
 
