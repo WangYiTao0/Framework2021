@@ -21,15 +21,10 @@ namespace WytFramework.ServiceLocator.Default
             return null;
         }
 
-        public object GetModules(ModuleSearchKeys keys)
+        public object GetAllModules()
         {
-            List<object> output = null;
-            if (_modulesByType.TryGetValue(keys.Type, out output))
-            {
-               
-            }
-
-            return output;
+            //  SelectMany 可以理解成 二维遍历
+            return _modulesByType.Values.SelectMany(list => list);
         }
 
         public void AddModule(ModuleSearchKeys keys, object module)
@@ -41,20 +36,6 @@ namespace WytFramework.ServiceLocator.Default
             else
             {
                 _modulesByType.Add(keys.Type, new List<object>() {module});
-            }
-        }
-
-        public void AddModules(ModuleSearchKeys keys, object modules)
-        {
-            var moduleCollection = (IEnumerable<object>) modules;
-
-            if (_modulesByType.ContainsKey(keys.Type))
-            {
-                _modulesByType[keys.Type].AddRange(moduleCollection);
-            }
-            else
-            {
-                _modulesByType.Add(keys.Type,moduleCollection.ToList());
             }
         }
     }

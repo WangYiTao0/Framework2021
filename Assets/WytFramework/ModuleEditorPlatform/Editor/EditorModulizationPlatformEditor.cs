@@ -39,7 +39,7 @@ namespace WytFramework
         private void OnGUI()
         {
             // 获取全部模块
-            var modules = mModuleContainer.GetModules<IEditorPlatformModule>();
+            var modules = mModuleContainer.GetAllModules<IEditorPlatformModule>();
 
             //Render
             foreach(var editorPlatformModule in modules)

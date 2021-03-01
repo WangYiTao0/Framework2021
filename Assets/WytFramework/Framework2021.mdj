@@ -2934,7 +2934,7 @@
 											"top": 503,
 											"width": 316.849609375,
 											"height": 13,
-											"text": "+CreateModules(ModuleSearchKeys): object",
+											"text": "+CreateAllModules(): object",
 											"horizontalAlignment": 0
 										}
 									],
@@ -3582,7 +3582,7 @@
 											"font": "Arial;13;1",
 											"left": 261,
 											"top": 519,
-											"width": 119.9326171875,
+											"width": 204.13427734375,
 											"height": 13,
 											"text": "ModuleSearchKeys"
 										},
@@ -3617,7 +3617,7 @@
 									"font": "Arial;13;0",
 									"left": 256,
 									"top": 512,
-									"width": 129.9326171875,
+									"width": 214.13427734375,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF37QqHMB06ytU="
@@ -3654,7 +3654,7 @@
 											"font": "Arial;13;0",
 											"left": 261,
 											"top": 542,
-											"width": 119.9326171875,
+											"width": 204.13427734375,
 											"height": 13,
 											"text": "+Name: string",
 											"horizontalAlignment": 0
@@ -3671,7 +3671,7 @@
 											"font": "Arial;13;0",
 											"left": 261,
 											"top": 557,
-											"width": 119.9326171875,
+											"width": 204.13427734375,
 											"height": 13,
 											"text": "+Type: Type",
 											"horizontalAlignment": 0
@@ -3680,7 +3680,7 @@
 									"font": "Arial;13;0",
 									"left": 256,
 									"top": 537,
-									"width": 129.9326171875,
+									"width": 214.13427734375,
 									"height": 38
 								},
 								{
@@ -3692,11 +3692,47 @@
 									"model": {
 										"$ref": "AAAAAAF37QqHLx02yM8="
 									},
+									"subViews": [
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF37XbQlCu8I9o=",
+											"_parent": {
+												"$ref": "AAAAAAF37QqHMB0/SbM="
+											},
+											"model": {
+												"$ref": "AAAAAAF37XbQiSuz6+M="
+											},
+											"font": "Arial;13;0",
+											"left": 261,
+											"top": 580,
+											"width": 204.13427734375,
+											"height": 13,
+											"text": "+Allocate(Type): ModuleSearchKey",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF37XdN4SwzqjI=",
+											"_parent": {
+												"$ref": "AAAAAAF37QqHMB0/SbM="
+											},
+											"model": {
+												"$ref": "AAAAAAF37XdN2ywqQgo="
+											},
+											"font": "Arial;13;0",
+											"left": 261,
+											"top": 595,
+											"width": 204.13427734375,
+											"height": 13,
+											"text": "+Release2Pool(): void",
+											"horizontalAlignment": 0
+										}
+									],
 									"font": "Arial;13;0",
 									"left": 256,
 									"top": 575,
-									"width": 129.9326171875,
-									"height": 10
+									"width": 214.13427734375,
+									"height": 38
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -3735,8 +3771,8 @@
 							"containerChangeable": true,
 							"left": 256,
 							"top": 512,
-							"width": 129.9326171875,
-							"height": 73,
+							"width": 214.13427734375,
+							"height": 101,
 							"nameCompartment": {
 								"$ref": "AAAAAAF37QqHLx05djY="
 							},
@@ -3900,7 +3936,7 @@
 											"top": 375,
 											"width": 274.2314453125,
 											"height": 13,
-											"text": "+GetModules(ModuleSearchKeys): object",
+											"text": "+GetAllModules(): object",
 											"horizontalAlignment": 0
 										},
 										{
@@ -3929,6 +3965,7 @@
 											"model": {
 												"$ref": "AAAAAAF37TzYqSlI4l4="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 805,
 											"top": 405,
@@ -3942,7 +3979,7 @@
 									"left": 800,
 									"top": 355,
 									"width": 284.2314453125,
-									"height": 68
+									"height": 53
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -4911,17 +4948,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF367KlcQazSJ4="
 							},
-							"name": "CreateModules",
+							"name": "CreateAllModules",
 							"parameters": [
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAF37TNatycwYtQ=",
-									"_parent": {
-										"$ref": "AAAAAAF37TMlYycL2GY="
-									},
-									"name": "ModuleSearchKeys",
-									"type": ""
-								},
 								{
 									"_type": "UMLParameter",
 									"_id": "AAAAAAF37TNatycxnlA=",
@@ -5023,6 +5051,55 @@
 							"name": "Type",
 							"type": "Type"
 						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF37XbQiSuz6+M=",
+							"_parent": {
+								"$ref": "AAAAAAF37QqHLx02yM8="
+							},
+							"name": "Allocate",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF37XchhivYqJc=",
+									"_parent": {
+										"$ref": "AAAAAAF37XbQiSuz6+M="
+									},
+									"name": "Type",
+									"type": ""
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF37XchhivZw2o=",
+									"_parent": {
+										"$ref": "AAAAAAF37XbQiSuz6+M="
+									},
+									"type": "ModuleSearchKey",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF37XdN2ywqQgo=",
+							"_parent": {
+								"$ref": "AAAAAAF37QqHLx02yM8="
+							},
+							"name": "Release2Pool",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF37XeDhyxPcoY=",
+									"_parent": {
+										"$ref": "AAAAAAF37XdN2ywqQgo="
+									},
+									"type": "void",
+									"direction": "return"
+								}
+							]
+						}
 					]
 				},
 				{
@@ -5067,17 +5144,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF37SuXMCV8ssY="
 							},
-							"name": "GetModules",
+							"name": "GetAllModules",
 							"parameters": [
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAF37Txnzyi/WCk=",
-									"_parent": {
-										"$ref": "AAAAAAF37Twglih2zLc="
-									},
-									"name": "ModuleSearchKeys",
-									"type": ""
-								},
 								{
 									"_type": "UMLParameter",
 									"_id": "AAAAAAF37TxnzyjAt60=",

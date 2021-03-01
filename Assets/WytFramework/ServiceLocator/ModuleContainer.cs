@@ -36,18 +36,21 @@ namespace WytFramework
             return module as T;
         }
         
-        public IEnumerable<T> GetModules<T>() where T : class
+        public IEnumerable<T> GetAllModules<T>() where T : class
         {
             // 申请对象
             var moduleSearchKeys = ModuleSearchKeys.Allocate<T>();
             
-            var modules = _moduleCache.GetModules(moduleSearchKeys) as IEnumerable<object>;
+            var modules = _moduleCache.GetAllModules() as IEnumerable<object>;
 
-            if (modules == null)
+            if (modules == null|| !modules.Any())
             {
-                modules = _moduleFactory.CreateModules(moduleSearchKeys) as IEnumerable<object>;
+                modules = _moduleFactory.CreateAllModules() as IEnumerable<object>;
 
-                _moduleCache.AddModules(moduleSearchKeys, modules);
+                foreach (var module in modules)
+                {
+                    _moduleCache.AddModule(moduleSearchKeys, module);
+                }
             }
             // 回收对象
             moduleSearchKeys.Release2Pool();

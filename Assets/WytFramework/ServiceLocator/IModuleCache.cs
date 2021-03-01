@@ -8,11 +8,10 @@ namespace WytFramework.ServiceLocator
     {
         object GetModule(ModuleSearchKeys keys);
 
-        object GetModules(ModuleSearchKeys keys);
+        object GetAllModules();
 
         void AddModule(ModuleSearchKeys keys, object module);
-
-        void AddModules(ModuleSearchKeys keys, object modules);
+        
 
 
     }
