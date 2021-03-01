@@ -2,20 +2,24 @@
 
 namespace WytFramework.ServiceLocator.ModuleManagementExample
 {
-    public class ResManager
+    public interface IResManager : IModule
     {
-        
-        public PoolManager PoolManager { get; private set; }
-        public ResManager(PoolManager poolManager)
-        {
-            PoolManager = poolManager;
-        }
+        void DoSomething();
+    }
+    public class ResManager : IResManager
+    {
+        public IPoolManager PoolManager { get; set; }
 
         public void DoSomething()
         {
             var poolManager = new PoolManager();
 
             Debug.Log("ResManager DoSomething");
+        }
+
+        public void InitModule()
+        {
+            
         }
     }
 }

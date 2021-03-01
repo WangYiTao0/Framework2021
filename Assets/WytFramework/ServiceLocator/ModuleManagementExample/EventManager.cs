@@ -2,13 +2,14 @@
 
 namespace WytFramework.ServiceLocator.ModuleManagementExample
 {
-    public class EventManager
+    public interface IEventManager : IModule
     {
-        public PoolManager PoolManager { get; private set; }
-        public EventManager(PoolManager poolManager)
-        {
-            PoolManager = poolManager;
-        }
+        void DoSomething();
+    }
+
+    public class EventManager : IEventManager
+    {
+        public PoolManager PoolManager { get; set; }
 
         public void DoSomething()
         {
@@ -16,6 +17,11 @@ namespace WytFramework.ServiceLocator.ModuleManagementExample
             var poolManager = new PoolManager();
 
             Debug.Log("EventManager DoSomeThing");
+        }
+
+        public void InitModule()
+        {
+            
         }
     }
 }
