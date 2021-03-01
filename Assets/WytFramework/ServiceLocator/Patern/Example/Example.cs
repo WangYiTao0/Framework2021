@@ -15,20 +15,12 @@ namespace WytFramework.ServiceLocator.Patern.Example
             //获得Example 所在的 service
             public override IService LookUp(string name)
             {
-                var assembly = typeof(Example).Assembly;
+                IService service = null;
 
-                var serviceType = typeof(IService);
-
-                //获取所有实现IService接口的类型
-                var service = assembly.GetTypes()
-                    // 获取所有实现 IService 接口的类型
-                    .Where(t=>serviceType.IsAssignableFrom(t)&&!t.IsAbstract)
-                    // 创建实例
-                    .Select(t => t.GetConstructors().First<ConstructorInfo>().Invoke(null))
-                    // 转型为 IService
-                    .Cast<IService>()
-                    // 获取符合条件的 Service 对象
-                    .SingleOrDefault(s => s.Name == name);
+                if (name == "bluetooth")
+                {
+                    service = new BluetoothService();
+                }
 
                 return service;
             }

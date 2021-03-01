@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using WytFramework.ServiceLocator;
 
 namespace WytFramework
 {
     public class EditorModulizationPlatformEditor : EditorWindow
     {
         /// <summary>
-        /// Editor Module
+        /// 用来缓存模块的容器
         /// </summary>
-        static ModuleContainer<IEditorPlatformModule> mModuleContainer = new ModuleContainer<IEditorPlatformModule>();
+        private ModuleContainer mModuleContainer = null;
 
         /// <summary>
         /// Open Window
@@ -24,18 +25,22 @@ namespace WytFramework
             editorPlatform.position = new Rect(Screen.width / 2, Screen.height * 2 / 3, 600, 500);
             editorPlatform.Show();
 
-            // clear the modules
-            mModuleContainer.Modules.Clear();
+            // 组装 Container
+            var cache = new EditorPlatformModuleCache();
+            var factory = new EditorPlatformModuleFactory();
 
-            mModuleContainer.Scan("Assembly-CSharp-Editor");
+            editorPlatform.mModuleContainer = new ModuleContainer(cache, factory);
 
             editorPlatform.Show();
         }
 
         private void OnGUI()
         {
+            // 获取全部模块
+            var modules = mModuleContainer.GetModules<IEditorPlatformModule>();
+
             //Render
-            foreach(var editorPlatformModule in mModuleContainer.Modules)
+            foreach(var editorPlatformModule in modules)
             {
                 editorPlatformModule.OnGUI();
             }
