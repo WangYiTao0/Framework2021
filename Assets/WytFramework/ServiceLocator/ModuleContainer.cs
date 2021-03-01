@@ -19,7 +19,8 @@ namespace WytFramework
 
         public T GetModule<T>() where T : class
         {
-            var moduleSearchKeys = new ModuleSearchKeys(){ Type = typeof(T)};
+            // 申请对象
+            var moduleSearchKeys = ModuleSearchKeys.Allocate<T>();
             var module = _moduleCache.GetModule(moduleSearchKeys);
 
             if (module == null)
@@ -29,12 +30,15 @@ namespace WytFramework
                 _moduleCache.AddModule(moduleSearchKeys, module);
             }
 
+            // 回收对象
+            moduleSearchKeys.Release2Pool();
             return module as T;
         }
         
         public IEnumerable<T> GetModules<T>() where T : class
         {
-            var moduleSearchKeys = new ModuleSearchKeys(){ Type = typeof(T)};
+            // 申请对象
+            var moduleSearchKeys = ModuleSearchKeys.Allocate<T>();
             var modules = _moduleCache.GetModules(moduleSearchKeys) as IEnumerable<object>;
 
             if (modules == null)
@@ -43,7 +47,8 @@ namespace WytFramework
 
                 _moduleCache.AddModules(moduleSearchKeys, modules);
             }
-
+            // 回收对象
+            moduleSearchKeys.Release2Pool();
             return modules.Select(m => m as T);
         }
         
