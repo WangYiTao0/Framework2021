@@ -8,7 +8,7 @@ namespace WytFramework.ServiceLocator.ModuleManagementExample
     }
     public class ResManager : IResManager
     {
-        public IPoolManager PoolManager { get; set; }
+        private IPoolManager mPoolManager { get; set; }
 
         public void DoSomething()
         {
@@ -17,7 +17,7 @@ namespace WytFramework.ServiceLocator.ModuleManagementExample
 
         public void InitModule()
         {
-            
+            mPoolManager = ModuleManagementConfig.Container.GetModule<IPoolManager>();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace WytFramework.ServiceLocator.ModuleManagementExample
 
     public class EventManager : IEventManager
     {
-        public IPoolManager PoolManager { get; set; }
+        private IPoolManager mPoolManager { get; set; }
 
         public void DoSomething()
         {
@@ -18,7 +18,7 @@ namespace WytFramework.ServiceLocator.ModuleManagementExample
 
         public void InitModule()
         {
-            
+            mPoolManager = ModuleManagementConfig.Container.GetModule<IPoolManager>();
         }
     }
 }

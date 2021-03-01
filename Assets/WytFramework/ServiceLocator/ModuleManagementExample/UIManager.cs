@@ -8,20 +8,21 @@ namespace WytFramework.ServiceLocator.ModuleManagementExample
     }
     public class UIManager : IUIManager
     {
-        public IResManager ResManager { get; set; }
-        public IEventManager EventManager { get; set; }
+        private IResManager mResManager { get; set; }
+        private IEventManager mEventManager { get; set; }
         
         public void DoSomething()
         {
             Debug.Log("UIManager DoSomething");
             
-            ResManager.DoSomething();
-            EventManager.DoSomething();
+            mResManager.DoSomething();
+            mEventManager.DoSomething();
         }
 
         public void InitModule()
         {
-            
+            mResManager = ModuleManagementConfig.Container.GetModule<IResManager>();
+            mEventManager = ModuleManagementConfig.Container.GetModule<IEventManager>();
         }
     }
 }
