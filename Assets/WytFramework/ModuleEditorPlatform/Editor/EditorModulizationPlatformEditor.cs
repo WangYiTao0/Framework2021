@@ -13,7 +13,7 @@ namespace WytFramework
         /// <summary>
         /// 用来缓存模块的容器
         /// </summary>
-        private ModuleContainer mModuleContainer = null;
+        private ModuleContainer _moduleContainer = null;
 
         /// <summary>
         /// Open Window
@@ -31,7 +31,7 @@ namespace WytFramework
             var cache = new DefaultModuleCache();
             var factory = new AssemblyModuleFactory(moduleType.Assembly,moduleType);
 
-            editorPlatform.mModuleContainer = new ModuleContainer(cache, factory);
+            editorPlatform._moduleContainer = new ModuleContainer(cache, factory);
 
             editorPlatform.Show();
         }
@@ -39,7 +39,7 @@ namespace WytFramework
         private void OnGUI()
         {
             // 获取全部模块
-            var modules = mModuleContainer.GetAllModules<IEditorPlatformModule>();
+            var modules = _moduleContainer.GetAllModules<IEditorPlatformModule>();
 
             //Render
             foreach(var editorPlatformModule in modules)

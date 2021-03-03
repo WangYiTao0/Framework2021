@@ -13,13 +13,13 @@ namespace WytFramework
         private ModuleSearchKeys(){}
         
         //默认为10个容量
-        private static Stack<ModuleSearchKeys> mPool = new Stack<ModuleSearchKeys>(10);
+        private static Stack<ModuleSearchKeys> _pool = new Stack<ModuleSearchKeys>(10);
 
         public static ModuleSearchKeys Allocate<T>()
         {
             ModuleSearchKeys outputKeys = null;
 
-            outputKeys = mPool.Count != 0 ? mPool.Pop() : new ModuleSearchKeys();
+            outputKeys = _pool.Count != 0 ? _pool.Pop() : new ModuleSearchKeys();
 
             outputKeys.Type = typeof(T);
 
@@ -31,7 +31,7 @@ namespace WytFramework
             Type = null;
             Name = null;
 
-            mPool.Push(this);
+            _pool.Push(this);
         }
     }
 }
