@@ -1,0 +1,19 @@
+{
+    "Id": "",
+    "Version": "v0.0.2",
+    "Type": 0,
+    "AccessRight": 1,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/WytFramework/",
+    "IncludeFileOrFolders": [
+        "Assets/WytFramework"
+    ],
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v0.0.2",
+        "content": "更新ModuleContainer使用说明",
+        "author": "Wang",
+        "date": "2021 年 03 月 03 日 11:26",
+        "PackageId": ""
+    }
+}

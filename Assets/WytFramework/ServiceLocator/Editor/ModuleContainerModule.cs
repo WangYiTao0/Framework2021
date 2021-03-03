@@ -6,20 +6,23 @@ namespace WytFramework
     {
         public void OnGUI()
         {
-            GUILayout.Label("这里是 ModuleCotnainerModule", new GUIStyle()
+            GUILayout.Label("ModuleCotnainer 使用说明", new GUIStyle()
             {
                 fontSize = 20,
                 fontStyle = FontStyle.Bold
             }); ;
 
-            GUILayout.Label("1. 并指定接口类型");
+            GUILayout.Label("1. 指定接口类型");
             GUILayout.Label("public interface IModule {}");
-            GUILayout.Label("2. 创建 ModuleContainer 实例");
-            GUILayout.Label("var container = new ModuleContainer<IModule>();");
-            GUILayout.Label("3. 在指定 Assembly 中搜索");
-            GUILayout.Label("container.Scan(\"Assembly-CSharp-Editor\");");
-            GUILayout.Label("4. 获取 Modules");
-            GUILayout.Label("var modules = container.Modules;");
+            GUILayout.Label("2. 创建默认的模块缓存");
+            GUILayout.Label("var cache = new DefaultModuleCache();");
+            GUILayout.Label("3. 创建默认的模块工厂");
+            GUILayout.Label("var factory = new AssemblyModuleFactory(typeof(IModule).Assembly,typeof(IModule));");
+            GUILayout.Label("4. 创建模块容器的实例");
+            GUILayout.Label("var container = new ModuleContainer(cache,factory);");
+            GUILayout.Label("5. 获取 Module/Modules");
+            GUILayout.Label("var module = container.GetModule<IHelloModule>();");
+            GUILayout.Label("var modules = container.GetModule<IModules>();");
         }
     }
 }
