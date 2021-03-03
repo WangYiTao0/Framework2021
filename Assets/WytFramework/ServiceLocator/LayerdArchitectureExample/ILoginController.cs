@@ -11,7 +11,15 @@ namespace WytFramework.ServiceLocator.LayerdArchitectureExample
     {
         public void Login()
         {
-            Debug.Log("登录成功");
+            var accountSystem = ArchitectureConfig.Architecture.BusinessModuleLayer.GetModule<IAccountSystem>();
+            
+            accountSystem.Login("hello","abc",(succeed)=>
+            {
+                if (succeed)
+                {
+                    Debug.Log("登录成功");
+                }
+            });
         }
     }
 }

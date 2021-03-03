@@ -12,6 +12,10 @@ namespace WytFramework.ServiceLocator.LayerdArchitectureExample
         public void OnInput(KeyCode keyCode)
         {
             Debug.Log("输入了 : " + keyCode);
+
+            var missionSystem = ArchitectureConfig.Architecture.BusinessModuleLayer.GetModule<IMissionSystem>();
+            
+            missionSystem.OnEvent("JUMP");
         }
     }
 }
