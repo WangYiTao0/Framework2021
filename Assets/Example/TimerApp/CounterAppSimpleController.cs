@@ -7,6 +7,7 @@ namespace Example.TimerApp
 {
     public class CounterAppSimpleController : MonoBehaviour
     {
+        
         private CounterAppSimpleView _view;
         private CounterAppSimpleModel _model = new CounterAppSimpleModel();
 
