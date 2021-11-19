@@ -13,9 +13,9 @@ namespace WytFramework.ResourceKit
         /// <returns></returns>
         public static Res Create(string address)
         {
-            if (address.StartsWith("resource://"))
+            if (address.StartsWith(ResourcesRes.PREFIX))
             {
-                return new Res()
+                return new ResourcesRes()
                 {
                     Name = address
                 };

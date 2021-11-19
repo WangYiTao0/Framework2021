@@ -18,7 +18,7 @@ namespace WytFramework.ResourceKit
         Loaded = 2,
     }
     
-    public class Res : SimpleRC
+    public abstract class Res : SimpleRC
     {
         /// <summary>
         /// 资源状态
@@ -34,16 +34,9 @@ namespace WytFramework.ResourceKit
         /// </summary>
         public Object Asset { get; set; }
 
-        public virtual void Load()
-        {
-            Asset = Resources.Load(Name);
-        }
+        public abstract void Load();
 
-        public virtual void UnLoad()
-        {
-            //卸载操作
-            Resources.UnloadAsset(Asset);
-        }
+        public abstract void UnLoad();
 
         protected override void OnZeroRef()
         {

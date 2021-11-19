@@ -9,13 +9,11 @@ namespace WytFramework.ResourceKit.Tests
         {
             public override void Load()
             {
-                base.Load();
                 State = ResState.Loaded;
             }
             
             public override void UnLoad()
             {
-                base.UnLoad();
                 State = ResState.NotLoad;
             }
         }
@@ -56,7 +54,7 @@ namespace WytFramework.ResourceKit.Tests
         }
 
         [Test]
-        public void ResLoaderTest()
+        public void _03_ResLoaderTest()
         {
             //注册自定义类型的Res
             ResFactory.RegisterCustomRes((address) =>
@@ -85,6 +83,26 @@ namespace WytFramework.ResourceKit.Tests
             Assert.AreEqual(0,iconTextureRes.RefCount);
             Assert.AreEqual(ResState.NotLoad,iconTextureRes.State);
             resLoader = null;
+        }
+
+        [Test]
+        public void _04_ResourcesResTest()
+        {
+            var resloader = new ResLoader();
+            var audioClip = resloader.Load<AudioClip>("resources://Simple Swish 1");
+            
+            Assert.IsNotNull(audioClip);
+            var audioClipRes = resloader.LoadRes("resources://Simple Swish 1");
+            
+            Assert.AreEqual(1,audioClipRes.RefCount);
+            Assert.AreEqual(ResState.Loaded,audioClipRes.State);
+
+            resloader.UnloadAllAssets();
+            Assert.AreEqual(0,audioClipRes.RefCount);
+            Assert.AreEqual(ResState.NotLoad,audioClipRes.State);
+
+            resloader = null;
+
         }
     }
 }
