@@ -1,15 +1,13 @@
-﻿// Use the Assert class to test conditions.
-using System.Collections;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
+using WytFramework.Singleton;
 
 
-namespace WytFramework.Singleton.Tests
+namespace WytFramework.Tests
 {
-    public class MonoSingletonTests
+    public class _MonoSingletonTests
     {
-        public class MonoClass : MonoSingleton<MonoClass>
+        public class MonoClassA : MonoSingleton<MonoClassA>
         {
             
         }
@@ -17,8 +15,8 @@ namespace WytFramework.Singleton.Tests
         [Test]
         public void _2_MonoSinglton_AreSame_Test()
         {
-            var objA = MonoClass.Instance;
-            var objB = MonoClass.Instance;
+            var objA = MonoClassA.Instance;
+            var objB = MonoClassA.Instance;
             Assert.AreSame(objA, objB);
         
             //测试可以找到MonoClass

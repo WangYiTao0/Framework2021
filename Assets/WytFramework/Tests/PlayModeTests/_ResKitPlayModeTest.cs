@@ -2,11 +2,12 @@
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Assert = UnityEngine.Assertions.Assert;
+using WytFramework.ResourceKit;
 
-namespace WytFramework.ResourceKit.Tests
+
+namespace WytFramework.Tests
 {
-    public class ResKitPlayModeTest
+    public class _ResKitPlayModeTest
     {
 
         [UnityTest]
@@ -17,7 +18,7 @@ namespace WytFramework.ResourceKit.Tests
             var loaded = false;
             AudioClip clip = null;
             //异步记载一个资源
-            resLoader.LoadAsync("resources://amazon", (succeed,res) =>
+            resLoader.LoadAsync("resources://Simple Swish 1", (succeed,res) =>
             {
                 if (succeed)
                 {
@@ -26,7 +27,7 @@ namespace WytFramework.ResourceKit.Tests
                 }
                 else
                 {
-                    loaded = false;
+                    loaded = true;
                 }
             });
 

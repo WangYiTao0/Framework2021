@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using NUnit.Framework;
-using UnityEditor;
-using Assert = UnityEngine.Assertions.Assert;
+using WytFramework.EventSystem;
 
-namespace WytFramework.EventSystem.Tests.Editor
+namespace WytFramework.Tests
 {
     public class TestEventSystemTests
     {

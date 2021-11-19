@@ -1,7 +1,10 @@
+using System;
 using NUnit.Framework;
 using UnityEngine;
+using WytFramework.ResourceKit;
 
-namespace WytFramework.ResourceKit.Tests
+
+namespace WytFramework.Tests
 {
     public class ResKitCoreModelTests
     {
@@ -15,6 +18,12 @@ namespace WytFramework.ResourceKit.Tests
             public override void UnLoad()
             {
                 State = ResState.NotLoad;
+            }
+
+            public override void LoadAsync(Action<bool, Res> onLoad)
+            {
+                State = ResState.Loading;
+                onLoad(true, this);
             }
         }
 

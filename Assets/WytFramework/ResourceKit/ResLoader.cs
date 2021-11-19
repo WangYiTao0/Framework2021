@@ -25,7 +25,17 @@ namespace WytFramework.ResourceKit
             return res.Asset as T;
         }
 
-        public Res LoadRes(string address)
+        public void LoadAsync(string address, Action<bool, Res> onload)
+        {
+            LoadResAsync(address, onload);
+        }
+
+        /// <summary>
+        /// 从Cache中获得资源
+        /// </summary>
+        /// <param name="address"></param>
+        /// <returns></returns>
+        Res GetResFromCache(string address)
         {
             Res res = null;
             //先判断当前脚本有没有加载过资源，加载过则直接返回
@@ -44,6 +54,23 @@ namespace WytFramework.ResourceKit
                 
                 return res;
             }
+
+            return null;
+        }
+
+        void Add2LoadedResources(Res res)
+        {
+            res.Retain();
+            _loadedResources.Add(res.Name,res);
+        }
+        
+        public Res LoadRes(string address)
+        {
+            var res = GetResFromCache(address);
+            if (res != null)
+            {
+                return res;
+            }
             
             //如果都未记录，则通过ResFactory.Create 创建资源
             res = ResFactory.Create(address);
@@ -54,11 +81,36 @@ namespace WytFramework.ResourceKit
             res.Load();
             //记录到资源共享池中
             ResMgr.Instance.AddRes(res);
-            res.Retain();
+
+            //添加到ResLoader已加载的列表
+            Add2LoadedResources(res);
             
-            //记录到当前脚本记录中
-            _loadedResources.Add(res.Name,res);
+            res.Load();
+            
             return res;
+        }
+
+        public void LoadResAsync(string address, Action<bool, Res> onLoad)
+        {
+            var res = GetResFromCache(address);
+            if (res != null)
+            {
+                onLoad(true, res);
+            }
+            
+            //如果都未记录，则通过ResFactory.Create 船舰资源
+            res = ResFactory.Create(address);
+            if (res == null)
+            {
+                onLoad(false, null);
+                return;
+            }
+            //记录到资源共享池中
+            ResMgr.Instance.AddRes(res);
+            //添加到ResLoader以加载的列表
+            Add2LoadedResources(res);
+            //做加载操作
+            res.LoadAsync(onLoad);
         }
 
         public void UnloadAllAssets()
@@ -68,11 +120,6 @@ namespace WytFramework.ResourceKit
                 resKeyValue.Value.Release();
             }
             _loadedResources.Clear();
-        }
-
-        public void LoadAsync(string resourcesAmazon, Action<object> action)
-        {
-            throw new NotImplementedException();
         }
     }
 }

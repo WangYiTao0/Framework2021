@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using UnityEngine.TestTools;
+using WytFramework.Singleton;
 
-namespace WytFramework.Singleton.Tests.Editor
+namespace WytFramework.Tests
 {
     public class SingletonTests
     {

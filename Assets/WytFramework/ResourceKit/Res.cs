@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using Object = UnityEngine.Object;
 
 namespace WytFramework.ResourceKit
 {
@@ -41,6 +42,8 @@ namespace WytFramework.ResourceKit
 
         public abstract void UnLoad();
 
+        public abstract void LoadAsync(Action<bool, Res> onLoad);
+        
         protected override void OnZeroRef()
         {
             //自动触发卸载操作
@@ -48,5 +51,6 @@ namespace WytFramework.ResourceKit
             //删除掉 ResMgr 中的共享资源
             ResMgr.Instance.RemoveRes(Name);
         }
+
     }
 }
