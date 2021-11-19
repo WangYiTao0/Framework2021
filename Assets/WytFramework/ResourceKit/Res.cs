@@ -48,7 +48,7 @@ namespace WytFramework.ResourceKit
         protected override void OnZeroRef()
         {
             //删除掉 ResMgr 中的共享资源
-            ResMgr.Instance.OnResUnloaded(Name);
+            ResMgr.Instance.LoadedResources.Remove(Name);
         }
     }
 }

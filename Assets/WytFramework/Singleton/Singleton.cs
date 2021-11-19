@@ -1,5 +1,9 @@
 ﻿namespace WytFramework.Singleton
 {
+    /// <summary>
+    /// 普通Singlton 单例 需要实现private ctor
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class Singleton<T> : ISingleton where T : Singleton<T>
     {
         protected static T _instance;
