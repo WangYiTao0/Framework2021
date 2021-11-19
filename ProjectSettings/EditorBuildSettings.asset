@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/WytFramework/ResourceKit/Example/Scene1.unity
+    guid: 4d456b4fa67d1c54583b380939c42a31
+  - enabled: 1
+    path: Assets/WytFramework/ResourceKit/Example/Scene2.unity
+    guid: 430d3967328e7064c932eac737af257d
   m_configObjects: {}
