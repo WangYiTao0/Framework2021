@@ -12,13 +12,27 @@ namespace WytFramework.ResourceKit
         
         private Dictionary<string, Res> _loadedResources = new Dictionary<string, Res>();
 
-        public Dictionary<string, Res> LoadedResources
+        public void AddRes(Res res)
         {
-            get { return _loadedResources; }
+            _loadedResources.Add(res.Name,res);
         }
 
-        public void OnResUnloaded(string name)
+        public void RemoveRes(string resName)
         {
+            _loadedResources.Remove(resName);
         }
+
+        public Res GetRes(string resName)
+        {
+            Res retRes = null;
+            if (_loadedResources.TryGetValue(resName, out retRes))
+            {
+                return retRes;
+            }
+
+            return null;
+        }
+
+ 
     }
 }

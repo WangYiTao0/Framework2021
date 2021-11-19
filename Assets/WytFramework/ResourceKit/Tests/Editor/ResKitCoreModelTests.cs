@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using UnityEngine;
 
 namespace WytFramework.ResourceKit.Tests
 {
@@ -45,14 +46,45 @@ namespace WytFramework.ResourceKit.Tests
             };
 
             var resMgr = ResMgr.Instance;
-            resMgr.LoadedResources.Add(customRes.Name,customRes);
+            resMgr.AddRes(customRes);
             
-            Assert.IsTrue(resMgr.LoadedResources.ContainsKey(customRes.Name));
-            Assert.AreSame(resMgr.LoadedResources[customRes.Name], customRes);
+            Assert.IsNotNull(resMgr.GetRes(customRes.Name));
+            Assert.AreSame(resMgr.GetRes(customRes.Name), customRes);
 
-            resMgr.LoadedResources.Remove(customRes.Name);
-            Assert.IsFalse(resMgr.LoadedResources.ContainsKey(customRes.Name));
+            resMgr.RemoveRes(customRes.Name);
+            Assert.IsNull(resMgr.GetRes(customRes.Name));
+        }
 
+        [Test]
+        public void ResLoaderTest()
+        {
+            //注册自定义类型的Res
+            ResFactory.RegisterCustomRes((address) =>
+            {
+                if (address.StartsWith("test://"))
+                {
+
+                    return new TestRes()
+                    {
+                        Name = address
+                    };
+                }
+
+                return null;
+            });
+
+            //测试
+            var resLoader = new ResLoader();
+            var iconTextureRes = resLoader.LoadRes("test://amazon1");
+            
+            Assert.IsTrue(iconTextureRes is TestRes);
+            Assert.AreEqual(1,iconTextureRes.RefCount);
+            Assert.AreEqual(ResState.Loaded,iconTextureRes.State);
+            resLoader.UnloadAllAssets();
+
+            Assert.AreEqual(0,iconTextureRes.RefCount);
+            Assert.AreEqual(ResState.NotLoad,iconTextureRes.State);
+            resLoader = null;
         }
     }
 }
