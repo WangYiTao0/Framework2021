@@ -3,6 +3,9 @@ using WytFramework.Singleton;
 
 namespace WytFramework.ResourceKit
 {
+    /// <summary>
+    /// Res管理类 负责提供对Res的增删改查
+    /// </summary>
     public class ResMgr : Singleton <ResMgr>
     {
         private ResMgr()

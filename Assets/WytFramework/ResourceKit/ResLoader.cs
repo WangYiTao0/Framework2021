@@ -1,8 +1,13 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace WytFramework.ResourceKit
 {
+    /// <summary>
+    /// Res 的服务类,主要面向客户 停工简化的资源加载和卸载API
+    /// </summary>
     public class ResLoader
     {
 
@@ -63,6 +68,11 @@ namespace WytFramework.ResourceKit
                 resKeyValue.Value.Release();
             }
             _loadedResources.Clear();
+        }
+
+        public void LoadAsync(string resourcesAmazon, Action<object> action)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -18,6 +18,9 @@ namespace WytFramework.ResourceKit
         Loaded = 2,
     }
     
+    /// <summary>
+    /// 资源基类 负责存储资源状态,复制加载和卸载资源
+    /// </summary>
     public abstract class Res : SimpleRC
     {
         /// <summary>

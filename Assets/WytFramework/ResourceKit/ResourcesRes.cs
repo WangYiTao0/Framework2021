@@ -2,6 +2,9 @@
 
 namespace WytFramework.ResourceKit
 {
+    /// <summary>
+    /// 通过Resources 加载资源，前缀是 resources://
+    /// </summary>
     public class ResourcesRes : Res
     {
         public const string PREFIX = "resources://";

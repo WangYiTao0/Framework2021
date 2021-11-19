@@ -2,6 +2,9 @@
 
 namespace WytFramework.ResourceKit
 {
+    /// <summary>
+    /// 用于创建Res,可以更具不同的地址返回不同的Res,支持Res扩展
+    /// </summary>
     public class ResFactory
     {
         private static Func<string, Res> _resCreator = s => null;
