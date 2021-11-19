@@ -96,6 +96,7 @@ namespace WytFramework.ResourceKit
             if (res != null)
             {
                 onLoad(true, res);
+                return;
             }
             
             //如果都未记录，则通过ResFactory.Create 船舰资源

@@ -38,5 +38,16 @@ namespace WytFramework.Tests
             
             Assert.IsNotNull(clip);
         }
+
+        [UnityTest]
+        public IEnumerator _02_LoadAsyncTwiceTest()
+        {
+            var resLoader = new ResLoader();
+            resLoader.LoadAsync("resources://Simple Swish 1",(b,res)=>{});
+            resLoader.LoadAsync("resources://Simple Swish 1",(b,res)=>{});
+
+            Assert.Pass();
+            yield return null;
+        }
     }
 }

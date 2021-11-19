@@ -7,7 +7,7 @@ namespace WytFramework.Tests
     public class TestEventSystemTests
     {
         [Test]
-        public void _1_TypeEventSystem_RegisterTest()
+        public void _01_TypeEventSystem_RegisterTest()
         {
             string receivedMsg = string.Empty;
 
@@ -21,7 +21,7 @@ namespace WytFramework.Tests
         }
 
         [Test]
-        public void _2_TypeEventSystem_SendTest()
+        public void _02_TypeEventSystem_SendTest()
         {
             var receivedCount = 0;
             Action<string> onReceive = (msg) => { receivedCount++; };
@@ -43,7 +43,7 @@ namespace WytFramework.Tests
         }
         
         [Test]
-        public void _2_TypeEventSystem_UnRegisterTest()
+        public void _03_TypeEventSystem_UnRegisterTest()
         {
             var receivedCount = 0;
             Action<string> onReceive = (msg) => { receivedCount++; };

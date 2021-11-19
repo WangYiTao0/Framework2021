@@ -15,7 +15,7 @@ namespace WytFramework.Tests
         }
 
         [Test]
-        public void _1_Singleton_SingltonTest()
+        public void _01_Singleton_SingltonTest()
         {
             var objA = ClassA.Instance;
             var objB = ClassA.Instance;

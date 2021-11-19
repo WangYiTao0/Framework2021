@@ -13,7 +13,7 @@ namespace WytFramework.Tests
         }
 
         [Test]
-        public void _2_MonoSinglton_AreSame_Test()
+        public void _01_MonoSinglton_AreSame_Test()
         {
             var objA = MonoClassA.Instance;
             var objB = MonoClassA.Instance;
