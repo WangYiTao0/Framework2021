@@ -77,8 +77,9 @@ namespace WytFramework.ResourceKit
 
                 if (res.State == ResState.Loading)
                 {
-                    //正在做异步加载
+                    //正在做异步加载 要停下异步加载
                     res.StopLoadAsyncTask();
+                    //再同步加载
                     res.Load();
                     return res;
                 }

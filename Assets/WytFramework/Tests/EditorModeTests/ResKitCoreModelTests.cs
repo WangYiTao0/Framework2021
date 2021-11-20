@@ -112,7 +112,19 @@ namespace WytFramework.Tests
             Assert.AreEqual(ResState.NotLoad,audioClipRes.State);
 
             resloader = null;
+        }
 
+        [Test]
+        public void _05_GetWrongTypeBugTest()
+        {
+            var resLoader = new ResLoader();
+            var coinGetTextAsset = resLoader.Load<TextAsset>("resources://Simple Swish 1");
+
+            Assert.IsNotNull(coinGetTextAsset);
+
+            var coinGetAudioClip = resLoader.Load<AudioClip>("resources://Simple Swish 1");
+
+            Assert.IsNotNull(coinGetAudioClip);
         }
     }
 }

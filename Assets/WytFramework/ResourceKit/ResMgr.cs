@@ -8,27 +8,34 @@ namespace WytFramework.ResourceKit
     /// </summary>
     public class ResMgr : Singleton <ResMgr>
     {
+
         private ResMgr()
         {
             
         }
         
-        private Dictionary<string, Res> _loadedResources = new Dictionary<string, Res>();
+        private Dictionary<string, Res> _loadedReses = new Dictionary<string, Res>();
+
+        public Res GetRes(ResSearchKey resSearchKey)
+        {
+            //TODO
+            return null;
+        }
 
         public void AddRes(Res res)
         {
-            _loadedResources.Add(res.Name,res);
+            _loadedReses.Add(res.Name,res);
         }
 
         public void RemoveRes(string resName)
         {
-            _loadedResources.Remove(resName);
+            _loadedReses.Remove(resName);
         }
 
         public Res GetRes(string resName)
         {
             Res retRes = null;
-            if (_loadedResources.TryGetValue(resName, out retRes))
+            if (_loadedReses.TryGetValue(resName, out retRes))
             {
                 return retRes;
             }
@@ -36,6 +43,6 @@ namespace WytFramework.ResourceKit
             return null;
         }
 
- 
+  
     }
 }
