@@ -123,6 +123,7 @@ namespace WytFramework.ResourceKit
                 else
                 {
                     Debug.LogError($"{address} 状态异常 {res.State}");
+                    onLoad(false, null);
                 }
                 
                 return;
@@ -130,6 +131,7 @@ namespace WytFramework.ResourceKit
             
             //如果都未记录，则通过ResFactory.Create 船舰资源
             res = ResFactory.Create(address);
+            
             if (res == null)
             {
                 onLoad(false, null);
@@ -139,6 +141,9 @@ namespace WytFramework.ResourceKit
             ResMgr.Instance.AddRes(res);
             //添加到ResLoader以加载的列表
             Add2LoadedResources(res);
+            
+            //注册加载的事件
+            res.RegisterOnLoadEventOnce(onLoad);
             //做加载操作
             res.LoadAsync(onLoad);
         }
