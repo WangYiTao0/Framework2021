@@ -9,37 +9,63 @@ namespace WytFramework.Tests
 {
     public class TableTests 
     {
-        // public class TestDataItem
-        // {
-        //     public string Name { get; set; }
-        //     public int Age { get; set; }
-        // }
+        public class TestDataItem
+        {
+            public string Name { get; set; }
+            public int Age { get; set; }
+        }
+        
+        /// <summary>
+        /// 自定义的 TestDataTable
+        /// </summary>
+        public class TestDataTable : Table<TestDataItem>
+        {
+            public TestDataTable()
+            {
+                NameIndex = new TableIndex<string, TestDataItem>(item => item.Name);
+                AgeIndex = new TableIndex<int, TestDataItem>(item => item.Age);
+            }
+
+            public TableIndex<string, TestDataItem> NameIndex { get; private set; }
+            public TableIndex<int, TestDataItem> AgeIndex { get; private set; }
+
+            protected override void OnAdd(TestDataItem item)
+            {
+                NameIndex.Add(item);
+                AgeIndex.Add(item);
+            }
+
+            protected override void OnRemove(TestDataItem item)
+            {
+                NameIndex.Remove(item);
+                AgeIndex.Remove(item);
+            }
+        }
 
         [Test]
         public void _01_TableAddGetTest()
         {
-            var table = new Table<TestDataItem>();
+            var table = new TestDataTable();
 
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
-                table.Add(new TestDataItem()
+                table.Add(new TestDataItem
                 {
                     Name = "名字" + i,
-                    Age = i,
+                    Age = i
                 });
             }
 
-            var resuilt = table.Get(item => item.Age < 5);
-            
-            Assert.AreEqual(5,resuilt.Count());
+            var result = table.Get(item => item.Age < 5);
+
+            Assert.AreEqual(5, result.Count());
         }
 
 
         [Test]
         public void _02_TableQuerySpeedTest()
         {
-            var table = new Table<TestDataItem>();
-
+            var table = new TestDataTable();
             //生成300个数据
             for (int i = 0; i < 300; i++)
             {
@@ -71,9 +97,9 @@ namespace WytFramework.Tests
             stopWatch.Start();
 			
             // 查询 10000 次
-            for (var i = 0; i < 10000; i++)
+            for (var i = 0; i < 100000; i++)
             {
-                foreach (var testDataItem in table.GetByAge(150).Where(item => item.Name == "名字:150"))
+                foreach (var testDataItem in table.AgeIndex.Get(150).Where(item => item.Name == "名字:150"))
                 {
 
                 }

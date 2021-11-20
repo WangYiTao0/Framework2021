@@ -4,57 +4,35 @@ using System.Linq;
 
 namespace WytFramework.DataStructure
 {
-    public class TestDataItem
+    public abstract class Table<TDataItem> where TDataItem : class
     {
-        public string Name { get; set; }
+        List<TDataItem> _items = new List<TDataItem>();
 
-        public int Age { get; set; }
-    }
-
-    
-    public class Table<TDataItem> where TDataItem : TestDataItem
-    {
-        private List<TDataItem> _items = new List<TDataItem>();
-        
-        TableIndex<string, TDataItem> _nameIndex = new TableIndex<string, TDataItem>(item => item.Name);
-
-        TableIndex<int, TDataItem> _ageIndex = new TableIndex<int, TDataItem>(item => item.Age);
-        
         public void Add(TDataItem item)
         {
             _items.Add(item);
 
-            _nameIndex.Add(item);
-            _ageIndex.Add(item);
+            OnAdd(item);
         }
 
         public void Remove(TDataItem item)
         {
             _items.Remove(item);
-            
-            _nameIndex.Remove(item);
-            _ageIndex.Remove(item);
+
+            OnRemove(item);
         }
 
+        // 改，由于 TDataItem 是引用类型，所以直接改值即可。
         public void Update()
         {
-            
         }
+
+        protected abstract void OnAdd(TDataItem item);
+        protected abstract void OnRemove(TDataItem item);
 
         public IEnumerable<TDataItem> Get(Func<TDataItem, bool> condition)
         {
             return _items.Where(condition);
-        }
-        
-        public IEnumerable<TDataItem> GetByName(string name)
-        {
-           
-            return _nameIndex.Get(name);
-        }
-
-        public IEnumerable<TDataItem> GetByAge(int age)
-        {
-            return _ageIndex.Get(age);
         }
     }
 }
