@@ -18,6 +18,7 @@ namespace WytFramework.Tests
             public override void UnLoad()
             {
                 State = ResState.NotLoad;
+                DispatchOnLoadEvent(true);
             }
 
             public override void LoadAsync(Action<bool, Res> onLoad)

@@ -16,13 +16,16 @@ namespace WytFramework.ResourceKit
             var resourceName = Name.Remove(0, ResourcesRes.PREFIX.Length);
             Asset = Resources.Load(resourceName);
             State = ResState.Loaded;
+            
+            DispatchOnLoadEvent(true);
         }
 
 
         public override void LoadAsync(Action<bool, Res> onLoad)
         {
             State = ResState.Loading;
-            CoroutineRunner.Instance.StartCoroutine(DoLoadAsync(onLoad));
+            //存储异步任务
+            _loadAsyncTask = CoroutineRunner.Instance.StartCoroutine(DoLoadAsync(onLoad));
         }
 
         private IEnumerator DoLoadAsync(Action<bool, Res> onLoad)
@@ -34,13 +37,16 @@ namespace WytFramework.ResourceKit
             {
                 Asset = loadRequest.asset;
                 State = ResState.Loaded;
-                onLoad(true, this);
+                DispatchOnLoadEvent(true);
             }
             else
             {
                 State = ResState.NotLoad;
-                onLoad(false, null);
+                DispatchOnLoadEvent(false);
             }
+
+            //异步任务完成之后，需要置空
+            _loadAsyncTask = null;
         }
         
         public override void UnLoad()

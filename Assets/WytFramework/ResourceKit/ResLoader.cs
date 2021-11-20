@@ -67,24 +67,40 @@ namespace WytFramework.ResourceKit
         public Res LoadRes(string address)
         {
             var res = GetResFromCache(address);
+            
             if (res != null)
             {
-                return res;
+                if (res.State == ResState.Loaded)
+                {
+                    return res;
+                }
+
+                if (res.State == ResState.Loading)
+                {
+                    //正在做异步加载
+                    res.StopLoadAsyncTask();
+                    res.Load();
+                    return res;
+                }
+
+                if (res.State == ResState.NotLoad)
+                {
+                    throw new Exception($"{address} 状态异常 {res.State}");
+                }
             }
             
             //如果都未记录，则通过ResFactory.Create 创建资源
             res = ResFactory.Create(address);
 
             if (res == null) return null;
-            
-            //做加载操作
-            res.Load();
+
             //记录到资源共享池中
             ResMgr.Instance.AddRes(res);
 
             //添加到ResLoader已加载的列表
             Add2LoadedResources(res);
             
+            //做加载操作
             res.Load();
             
             return res;
@@ -95,7 +111,20 @@ namespace WytFramework.ResourceKit
             var res = GetResFromCache(address);
             if (res != null)
             {
-                onLoad(true, res);
+                if (res.State == ResState.Loaded)
+                {
+                    onLoad(true, res);
+                }
+                else if (res.State == ResState.Loading)
+                {
+                    //有正在进行的异步记载 直接注册即可
+                    res.RegisterOnLoadEventOnce(onLoad);   
+                }
+                else
+                {
+                    Debug.LogError($"{address} 状态异常 {res.State}");
+                }
+                
                 return;
             }
             

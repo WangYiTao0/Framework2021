@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace WytFramework.ResourceKit
@@ -38,6 +39,39 @@ namespace WytFramework.ResourceKit
         /// </summary>
         public Object Asset { get; set; }
 
+        #region 用于向外提供异步加载完成的事件
+
+        protected event Action<bool, Res> _onLoad = null;
+
+        public void RegisterOnLoadEventOnce(Action<bool, Res> onload)
+        {
+            _onLoad += onload;
+        }
+
+        protected void DispatchOnLoadEvent(bool succeed)
+        {
+            if (_onLoad != null)
+            {
+                _onLoad.Invoke(succeed,this);
+                _onLoad = null;
+            }
+        }
+        #endregion
+
+        #region 用于异步任务的中断
+
+        protected Coroutine _loadAsyncTask = null;
+
+        public void StopLoadAsyncTask()
+        {
+            if (_loadAsyncTask != null)
+            {
+                CoroutineRunner.Instance.StopCoroutine(_loadAsyncTask);
+                _loadAsyncTask = null;
+            }
+        }
+
+        #endregion
         public abstract void Load();
 
         public abstract void UnLoad();

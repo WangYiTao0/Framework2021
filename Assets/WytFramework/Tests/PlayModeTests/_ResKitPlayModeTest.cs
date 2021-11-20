@@ -49,5 +49,25 @@ namespace WytFramework.Tests
             Assert.Pass();
             yield return null;
         }
+        
+        
+        [UnityTest]
+        public IEnumerator _03_LoadAsyncTwiceBugTest()
+        {
+            int loadedCount = 0;
+            var resLoader = new ResLoader();
+            resLoader.LoadAsync("resources://Simple Swish 1", (succeed, res) =>
+            {
+                Assert.AreEqual(ResState.Loaded,res.State);
+                loadedCount++;
+            });
+            resLoader.LoadAsync("resources://Simple Swish 1", (succeed, res) =>
+            {
+                Assert.AreEqual(ResState.Loaded,res.State);
+                loadedCount++;
+            });
+
+            yield return new WaitUntil(()=> loadedCount == 2);
+        }
     }
 }
