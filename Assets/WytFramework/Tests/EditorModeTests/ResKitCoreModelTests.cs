@@ -21,10 +21,10 @@ namespace WytFramework.Tests
                 DispatchOnLoadEvent(true);
             }
 
-            public override void LoadAsync(Action<bool, Res> onLoad)
+            public override void LoadAsync()
             {
                 State = ResState.Loading;
-                onLoad(true, this);
+                //onLoad(true, this);
             }
         }
 
@@ -67,14 +67,15 @@ namespace WytFramework.Tests
         public void _03_ResLoaderTest()
         {
             //注册自定义类型的Res
-            ResFactory.RegisterCustomRes((address) =>
+            ResFactory.RegisterCustomRes((resSearchKeys) =>
             {
-                if (address.StartsWith("test://"))
+                if (resSearchKeys.Address.StartsWith("test://"))
                 {
 
                     return new TestRes()
                     {
-                        Name = address
+                        Name = resSearchKeys.Address,
+                        ResType = resSearchKeys.ResType
                     };
                 }
 
@@ -83,8 +84,7 @@ namespace WytFramework.Tests
 
             //测试
             var resLoader = new ResLoader();
-            var iconTextureRes = resLoader.LoadRes("test://amazon1");
-            
+            var iconTextureRes = resLoader.LoadRes(new ResSearchKeys("test://amazon", typeof(Texture2D)));
             Assert.IsTrue(iconTextureRes is TestRes);
             Assert.AreEqual(1,iconTextureRes.RefCount);
             Assert.AreEqual(ResState.Loaded,iconTextureRes.State);
@@ -98,20 +98,20 @@ namespace WytFramework.Tests
         [Test]
         public void _04_ResourcesResTest()
         {
-            var resloader = new ResLoader();
-            var audioClip = resloader.Load<AudioClip>("resources://Simple Swish 1");
+            var resLoader = new ResLoader();
+            var audioClip = resLoader.Load<AudioClip>("resources://Simple Swish 1");
             
             Assert.IsNotNull(audioClip);
-            var audioClipRes = resloader.LoadRes("resources://Simple Swish 1");
-            
+           // var audioClipRes = resloader.LoadRes("resources://Simple Swish 1");
+            var audioClipRes = resLoader.LoadRes(new ResSearchKeys("resources://Simple Swish 1", typeof(AudioClip)));
             Assert.AreEqual(1,audioClipRes.RefCount);
             Assert.AreEqual(ResState.Loaded,audioClipRes.State);
 
-            resloader.UnloadAllAssets();
+            resLoader.UnloadAllAssets();
             Assert.AreEqual(0,audioClipRes.RefCount);
             Assert.AreEqual(ResState.NotLoad,audioClipRes.State);
 
-            resloader = null;
+            resLoader = null;
         }
 
         [Test]

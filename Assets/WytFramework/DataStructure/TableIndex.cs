@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WytFramework.DataStructure
 {
@@ -8,7 +9,8 @@ namespace WytFramework.DataStructure
         private Dictionary<TKeyType, List<TDataItem>> _index = new Dictionary<TKeyType, List<TDataItem>>();
 
         private Func<TDataItem, TKeyType> _getKeyByDataItem = null;
-        
+
+
         public TableIndex(Func<TDataItem, TKeyType> keyGetter)
         {
             _getKeyByDataItem = keyGetter;
@@ -40,7 +42,21 @@ namespace WytFramework.DataStructure
 
         public IEnumerable<TDataItem> Get(TKeyType key)
         {
-            return _index[key];
+            List<TDataItem> retList = null;
+
+            if (_index.TryGetValue(key, out retList))
+            {
+                return retList;
+            }
+
+            // 返回一个空的集合
+            return Enumerable.Empty<TDataItem>();
+        }
+
+        // 新增
+        public void Clear()
+        {
+            _index.Clear();
         }
     }
 }

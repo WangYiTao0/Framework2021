@@ -18,7 +18,7 @@ namespace WytFramework.Tests
             var loaded = false;
             AudioClip clip = null;
             //异步记载一个资源
-            resLoader.LoadAsync("resources://Simple Swish 1", (succeed,res) =>
+            resLoader.LoadAsync<AudioClip>("resources://Simple Swish 1", (succeed,res) =>
             {
                 if (succeed)
                 {
@@ -43,8 +43,8 @@ namespace WytFramework.Tests
         public IEnumerator _02_LoadAsyncTwiceTest()
         {
             var resLoader = new ResLoader();
-            resLoader.LoadAsync("resources://Simple Swish 1",(b,res)=>{});
-            resLoader.LoadAsync("resources://Simple Swish 1",(b,res)=>{});
+            resLoader.LoadAsync<AudioClip>("resources://Simple Swish 1",(b,res)=>{});
+            resLoader.LoadAsync<AudioClip>("resources://Simple Swish 1",(b,res)=>{});
 
             Assert.Pass();
             yield return null;
@@ -56,12 +56,12 @@ namespace WytFramework.Tests
         {
             int loadedCount = 0;
             var resLoader = new ResLoader();
-            resLoader.LoadAsync("resources://Simple Swish 1", (succeed, res) =>
+            resLoader.LoadAsync<AudioClip>("resources://Simple Swish 1", (succeed, res) =>
             {
                 Assert.AreEqual(ResState.Loaded,res.State);
                 loadedCount++;
             });
-            resLoader.LoadAsync("resources://Simple Swish 1", (succeed, res) =>
+            resLoader.LoadAsync<AudioClip>("resources://Simple Swish 1", (succeed, res) =>
             {
                 Assert.AreEqual(ResState.Loaded,res.State);
                 loadedCount++;

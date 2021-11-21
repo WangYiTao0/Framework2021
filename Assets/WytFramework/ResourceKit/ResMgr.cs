@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using WytFramework.Singleton;
 
 namespace WytFramework.ResourceKit
@@ -8,39 +9,29 @@ namespace WytFramework.ResourceKit
     /// </summary>
     public class ResMgr : Singleton <ResMgr>
     {
+        private ResMgr() { }
 
-        private ResMgr()
-        {
-            
-        }
+        private ResTable _loadedReses = new ResTable();
         
-        private Dictionary<string, Res> _loadedReses = new Dictionary<string, Res>();
-
-        public Res GetRes(ResSearchKey resSearchKey)
-        {
-            //TODO
-            return null;
-        }
-
         public void AddRes(Res res)
         {
-            _loadedReses.Add(res.Name,res);
+            _loadedReses.Add(res);
         }
 
         public void RemoveRes(string resName)
         {
-            _loadedReses.Remove(resName);
+            var res2Remove = _loadedReses.NameIndex.Get(resName).SingleOrDefault();
+            _loadedReses.Remove(res2Remove);
         }
 
+        public Res GetRes(ResSearchKeys resSearchKeys)
+        {
+            return _loadedReses.NameIndex.Get(resSearchKeys.Address)
+                .FirstOrDefault(res => res.ResType == resSearchKeys.ResType);
+        }
         public Res GetRes(string resName)
         {
-            Res retRes = null;
-            if (_loadedReses.TryGetValue(resName, out retRes))
-            {
-                return retRes;
-            }
-
-            return null;
+            return _loadedReses.NameIndex.Get(resName).SingleOrDefault();
         }
 
   

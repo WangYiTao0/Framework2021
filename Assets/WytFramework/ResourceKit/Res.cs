@@ -39,6 +39,9 @@ namespace WytFramework.ResourceKit
         /// </summary>
         public Object Asset { get; set; }
 
+        
+        public Type ResType { get; set; }
+
         #region 用于向外提供异步加载完成的事件
 
         protected event Action<bool, Res> _onLoad = null;
@@ -76,7 +79,7 @@ namespace WytFramework.ResourceKit
 
         public abstract void UnLoad();
 
-        public abstract void LoadAsync(Action<bool, Res> onLoad);
+        public abstract void LoadAsync();
         
         protected override void OnZeroRef()
         {

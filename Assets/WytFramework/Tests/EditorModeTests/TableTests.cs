@@ -40,6 +40,12 @@ namespace WytFramework.Tests
                 NameIndex.Remove(item);
                 AgeIndex.Remove(item);
             }
+
+            protected override void OnClear()
+            {
+                NameIndex.Clear();
+                AgeIndex.Clear();
+            }
         }
 
         [Test]

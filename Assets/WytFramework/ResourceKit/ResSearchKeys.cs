@@ -2,7 +2,7 @@
 
 namespace WytFramework.ResourceKit
 {
-    public class ResSearchKey
+    public class ResSearchKeys
     {
         /// <summary>
         /// 资源地址(前缀 + 资源路径)
@@ -14,7 +14,7 @@ namespace WytFramework.ResourceKit
         /// </summary>
         public Type ResType { get; private set; }
 
-        public ResSearchKey(string address, Type resType)
+        public ResSearchKeys(string address, Type resType)
         {
             ResType = resType;
             Address = address;
